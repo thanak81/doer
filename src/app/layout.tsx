@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Nunito, Roboto } from "next/font/google";
+import "./styles/globals.css";
+import Providers from "./Providers";
+import { Toaster } from "@/components/ui/toaster";
+import Sidebar from "./components/Sidebar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const roboto = Roboto({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-roboto",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const nunito = Nunito({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-nunito",
 });
 
 export const metadata: Metadata = {
@@ -25,9 +30,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${nunito.variable} ${roboto.variable}  bg-main_background font-primary antialiased`}
       >
-        {children}
+        <div className="flex ">
+          <Sidebar />
+          <div className="p-5 w-full">{children}</div>
+          <Toaster />
+        </div>
       </body>
     </html>
   );
