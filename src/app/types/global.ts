@@ -29,10 +29,6 @@ export type toDoType = {
     id: string,
     task: string;
     description: string;
-    date:{
-        from : string,
-        to: string;
-    },
-    status: string,
+    date: Date , 
     done: boolean,
 }

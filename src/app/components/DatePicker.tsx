@@ -15,15 +15,24 @@ import {
 } from "@/components/ui/popover";
 import { UseFormSetValue } from "react-hook-form";
 import { Input } from "../(pages)/todo/page";
+import { toDoType } from "../types/global";
 type DateRangePropType = {
   setValue: UseFormSetValue<Input>;
+  data: toDoType;
 };
-export function DatePickerWithRange({ setValue }: DateRangePropType) {
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2025, 0, 1),
-    to: addDays(new Date(2025, 0, 20), 20),
-  });
+export function DatePickerWithRange({ setValue, data }: DateRangePropType) {
+  const [date, setDate] = React.useState<Date>(new Date());
+
   React.useEffect(() => {
+    if (data && data.date) {
+      setDate(data.date);
+    }
+  }, [data]);
+
+  React.useEffect(() => {
+    if (!date) {
+      setDate(new Date());
+    }
     setValue("date", date);
   }, [date, setValue]);
   return (
@@ -39,29 +48,15 @@ export function DatePickerWithRange({ setValue }: DateRangePropType) {
             )}
           >
             <CalendarIcon />
-            {date?.from ? (
-              date.to ? (
-                <>
-                  {format(date.from, "LLL dd, y")} -{" "}
-                  {format(date.to, "LLL dd, y")}
-                </>
-              ) : (
-                format(date.from, "LLL dd, y")
-              )
-            ) : (
-              <span>Pick a date</span>
-            )}
+            {date ? format(date, "PPP") : <span>Pick a date</span>}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto  p-0 bg-white" align="start">
           <Calendar
-            className="bg-main_background text-white "
-            initialFocus
-            mode="range"
-            defaultMonth={date?.from}
+            mode="single"
             selected={date}
             onSelect={setDate}
-            numberOfMonths={2}
+            initialFocus
           />
         </PopoverContent>
       </Popover>
