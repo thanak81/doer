@@ -6,7 +6,7 @@ type Props = {
 };
 
 function layout({ children }: Props) {
-  return <div className="flex w-full">
+  return <div className="flex w-full text-base">
     {/* <Sidebar/> */}
     {children}
     </div>;

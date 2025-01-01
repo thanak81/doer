@@ -19,12 +19,13 @@ import { toast, useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 import { useState } from "react";
 import BookSection from "./BookSection";
+import ReadingStreak from "./ReadingStreak";
 
 type Props = {};
 
 function BookPage({}: Props) {
   return (
-    <main className="w-full flex flex-col gap-5 ">
+    <main className="w-full flex flex-col gap-5">
       <section className="px-10 pl-20 p-10 place-content-start h-[32.5rem] font-primary text-base bg-yellow-600 rounded-bl-[80px] rounded-xl">
         <Title>Discover</Title>
         <div className="flex bg-white w-[400px] rounded-lg items-center mt-5">
@@ -52,8 +53,9 @@ function BookPage({}: Props) {
           </Button>
         </div>
         <div className="mt-10 w-full">
-        <BookSection />
         
+        <BookSection />
+        <ReadingStreak/>
       </div>
       </section>
  

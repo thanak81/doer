@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Drawer,
   DrawerClose,
@@ -14,30 +14,32 @@ import ModifiedButton from "@/components/ModifiedButton";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { bookDataFake } from "@/app/data/global";
 type Props = {};
 
 function BookSection({}: Props) {
   const { toast } = useToast();
+  const [bookData, setBookData] = useState(bookDataFake);
   return (
     <section className="flex flex-col gap-5 w-full">
       <div className="flex justify-between items-center w-full">
         <div className="text-h3 text-white font-bold">Book Recommendation</div>
         <Button className="bg-white">View All</Button>
       </div>
-      <div>
-        <div>
-          <Drawer>
+      <div className="flex gap-5">
+        {bookData.map((book) => (
+          <Drawer key={book.id}>
             <DrawerTrigger asChild>
               <Image
-                src="/atomic.jpg"
+                src={book.image}
                 alt="book"
                 width={150}
                 height={150}
                 className="rounded-lg"
               />
             </DrawerTrigger>
-            <DrawerContent className="bg-main_background text-white text-base py-10">
-              <div className="mx-auto w-full max-w-4xl flex flex-col justify-around h-full gap-10">
+            <DrawerContent className="bg-main_background text-white text-base py-10 py-10">
+              <div className="mx-auto w-full max-w-7xl flex flex-col justify-around h-full gap-10">
                 <DrawerHeader className="p-0">
                   <DrawerTitle className="font-bold text-h3">
                     Book Detail
@@ -46,20 +48,20 @@ function BookSection({}: Props) {
                 <div className=" h-full flex flex-col  justify-center">
                   <div className="flex gap-5 ">
                     <Image
-                      src="/atomic.jpg"
+                      src={book.image}
                       alt="book"
-                      width={150}
-                      height={150}
+                      width={250}
+                      height={250}
                       className="rounded-lg"
                     />
                     <div className="flex flex-col">
                       <div className="text-h2 font-extrabold font-secondary text-yellow-500">
-                        ATOMIC HABIT
+                        {book.title}
                       </div>
                       <div className="font-primary">
                         <span>Category: </span>
                         <span className="text-yellow-500 font-bold">
-                          Self Improvement
+                          {book.category}
                         </span>
                       </div>
                     </div>
@@ -84,8 +86,8 @@ function BookSection({}: Props) {
               </div>
             </DrawerContent>
           </Drawer>
-        </div>
-      </div>
+        ))}
+      </div>{" "}
     </section>
   );
 }

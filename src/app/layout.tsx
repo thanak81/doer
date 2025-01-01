@@ -32,9 +32,9 @@ export default function RootLayout({
       <body
         className={`${nunito.variable} ${roboto.variable}  bg-main_background font-primary antialiased`}
       >
-        <div className="flex ">
+        <div className="flex">
           <Sidebar />
-          <div className="p-5 w-full">{children}</div>
+          <div className="w-full overflow-y-auto">{children}</div>
           <Toaster />
         </div>
       </body>
